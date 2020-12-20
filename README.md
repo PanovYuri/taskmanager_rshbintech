@@ -1,2 +1,2 @@
 # taskmanager_rshbintech
-includeurl src/main/java/Main.puml
+![uml](src/main/java/MainUML.png)
