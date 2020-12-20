@@ -1,0 +1,74 @@
+@startuml
+
+class BasicItem {
+    - LocalDate dateCreate;
+    - LocalDate dateStart;
+    - LocalDate dateComplete;
+    - Status status;
+    - String responsiblePerson;
+    - int completePercent;
+
+    + getResponsiblePerson(): String
+    + setResponsiblePerson(responsiblePerson: String)
+    + getCompletePercent(): int
+    + setCompletePercent(completePercent: int)
+    + getDateCreate(): LocalDate
+    + setDateCreate(dateCreate: LocalDate)
+    + getDateStart(): LocalDate
+    + setDateStart(dateStart: LocalDate)
+    + getDateComplete(): LocalDate
+    + setDateComplete(dateComplete: LocalDate)
+    + getStatus(): Status
+    + setStatus(status: Status)
+}
+
+class ProjectManager {
+    + static getPDZ(projects: ArrayList<Project>): LocalDate
+}
+
+class UserStory {
+    - tasksPool: HashMap
+    + getMaxPDZ(): LocalDate
+    + addTask(task: Task)
+    + static getMaxPDZ(projects: ArrayList<Project>): LocalDate
+}
+
+class Project {
+    - userStoryPool: HashMap
+    + getMaxPDZ(): LocalDate
+    + addUserStory(task: Task)
+    + static getMaxPDZ(projects: ArrayList<Project>): LocalDate
+}
+
+class Task {
+    - taskType: TaskType
+    - getK(): double
+    + calculatePDZ(): LocalDate
+}
+
+enum Status {
+    NEW,
+    ANALYSIS,
+    WORK,
+    COMPLETE
+}
+
+enum TaskType {
+    BUG,
+    FEATURE,
+    IMPROVEMENT
+}
+
+Project <|-- BasicItem
+Task <|--BasicItem
+UserStory <|-- BasicItem
+
+Status <-- BasicItem
+TaskType <-- Task
+
+UserStory o.. Task
+Project o.. UserStory
+
+ProjectManager <-- Project
+
+@enduml
